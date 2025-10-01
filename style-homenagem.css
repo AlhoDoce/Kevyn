@@ -1,10 +1,12 @@
+/* ========================================= */
+/* ESTILO GERAL (TEMA ESCURO)                */
+/* ========================================= */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 20px;
-  /* Fundo escuro com gradiente, igual à página de login */
   background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-  color: #f0f0f0; /* Cor do texto principal clara */
+  color: #f0f0f0;
   line-height: 1.6;
   display: flex;
   flex-direction: column;
@@ -21,7 +23,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* Deixa o fundo atrás de todo o conteúdo */
+  z-index: -2;
 }
 #stars1,
 #stars2,
@@ -71,13 +73,46 @@ body {
 }
 
 /* ========================================= */
-/* CONTEÚDO PRINCIPAL (COM EFEITO DE VIDRO)  */
+/* NOVO: FUNDO DE CORAÇÕES FLUTUANTES        */
 /* ========================================= */
+#coracoes-flutuantes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.coracao-fundo {
+  position: absolute;
+  bottom: -100px; /* Começa fora da tela */
+  font-size: 20px;
+  color: rgba(255, 105, 180, 0.3); /* Rosa semi-transparente */
+  animation: flutuar linear infinite;
+  user-select: none; /* Impede que o texto seja selecionado */
+}
+
+@keyframes flutuar {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-50vh) translateX(20px) rotate(10deg);
+  }
+  100% {
+    transform: translateY(-110vh) translateX(-20px) rotate(-10deg);
+    opacity: 0;
+  }
+}
+
+/* Conteúdo principal (restante do CSS) */
 header,
 main {
   width: 100%;
   max-width: 900px;
-  /* Efeito de vidro semi-transparente */
   background-color: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -86,26 +121,20 @@ main {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
-
 header {
   margin-bottom: 40px;
 }
-
 header h1 {
-  color: #ffc107; /* Cor amarela/dourada para destaque */
+  color: #ffc107;
   margin-bottom: 10px;
 }
-
 header p {
   color: #ddd;
   font-style: italic;
 }
-
 main {
   margin-bottom: 30px;
 }
-
-/* Seção dos Botões com Balão de Mensagem */
 .botoes-balao-container {
   display: flex;
   justify-content: space-around;
@@ -164,41 +193,25 @@ main {
   visibility: visible;
   opacity: 1;
 }
-
-/* ========================================= */
-/* CARROSSEL (COM AJUSTES)                   */
-/* ========================================= */
 .carrossel-container {
   width: 100%;
-  max-width: 600px; /* Define uma largura máxima */
-  margin: 0 auto 40px auto; /* Centraliza e adiciona margem inferior */
+  max-width: 600px;
+  margin: 0 auto 40px auto;
   border-radius: 10px;
   overflow: hidden;
-  /* Define uma proporção fixa para evitar "pulos" de layout */
-  aspect-ratio: 4 / 3; /* Proporção de foto comum (4:3) */
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.2
-  ); /* Fundo sutil para a área do carrossel */
+  aspect-ratio: 4 / 3;
+  background-color: rgba(0, 0, 0, 0.2);
 }
-
 .carrossel-imagens {
   display: flex;
-  height: 100%; /* Ocupa toda a altura do container */
-  /* A transição será controlada via JS para o loop infinito */
+  height: 100%;
 }
-
 .carrossel-imagens img {
   width: 100%;
   height: 100%;
   flex-shrink: 0;
-  /* Garante que a imagem caiba inteira, sem cortar */
   object-fit: contain;
 }
-
-/* Seção dos Botões Especiais */
 .botoes-especiais-container {
   display: flex;
   justify-content: center;
@@ -206,8 +219,8 @@ main {
   margin-top: 20px;
 }
 .btn-especial {
-  background-color: #ffc107;
-  color: #333;
+  background-color: #c93d3d;
+  color: #ffffff;
   padding: 15px 30px;
   border: none;
   border-radius: 40px;
@@ -220,12 +233,14 @@ main {
   text-transform: uppercase;
 }
 .btn-especial:hover {
-  background-color: #ffb300;
+  background-color: #e41515;
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Animação de coração (sem alteração) */
+/* ========================================= */
+/* ANIMAÇÃO DE CORAÇÃO E TEXTO               */
+/* ========================================= */
 .coracao-animacao {
   position: fixed;
   top: 0;
@@ -240,6 +255,7 @@ main {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.5s ease, visibility 0.5s;
+  flex-direction: column;
 }
 .coracao {
   width: 200px;
@@ -276,9 +292,25 @@ main {
   transform: scale(1);
 }
 
-/* ========================================= */
-/* ESTILOS PARA CELULAR (RESPONSIVIDADE)     */
-/* ========================================= */
+/* NOVO: Estilo para o texto animado */
+.texto-animado {
+  color: #fff;
+  font-size: 2em;
+  font-weight: bold;
+  margin-top: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transition-delay: 0.5s; /* Atraso para o texto aparecer depois do coração */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.coracao-animacao.show .texto-animado {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsividade (sem alteração) */
 @media (max-width: 768px) {
   body {
     padding: 10px;
@@ -295,7 +327,7 @@ main {
     font-size: 0.95em;
   }
   .carrossel-container {
-    aspect-ratio: 1 / 1; /* Deixa o carrossel mais quadrado em celulares */
+    aspect-ratio: 1 / 1;
   }
   .botoes-especiais-container {
     flex-direction: column;
@@ -307,4 +339,104 @@ main {
     font-size: 1em;
     text-align: center;
   }
+  .texto-animado {
+    font-size: 1.5em;
+  } /* Ajusta o texto animado para celular */
+}
+
+/* ========================================= */
+/* NOVO: ESTILOS PARA O MODAL DA PERGUNTA    */
+/* ========================================= */
+
+.overlay-pergunta {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85); /* Fundo mais escuro */
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* Garante que fique acima de tudo */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.overlay-pergunta.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.caixa-pergunta {
+  background-color: #333; /* Fundo escuro para a caixa */
+  color: #fff;
+  padding: 30px 40px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  /* Animação de surgimento */
+  transform: scale(0.8) translateY(20px);
+  opacity: 0;
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+  transition-delay: 0.1s; /* Aparece um pouco depois do fundo */
+}
+
+.overlay-pergunta.show .caixa-pergunta {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.caixa-pergunta h2 {
+  color: #ffc107; /* Amarelo dourado */
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.caixa-pergunta p {
+  font-size: 1.1em;
+  margin-bottom: 30px;
+  color: #eee;
+}
+
+.botoes-resposta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.botoes-resposta button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 100px;
+}
+
+.botoes-resposta button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-sim {
+  background-color: #4caf50; /* Verde */
+  color: white;
+}
+
+.btn-nao {
+  background-color: #f44336; /* Vermelho */
+  color: white;
+}
+
+.btn-fechar {
+  background-color: #9e9e9e; /* Cinza */
+  color: white;
 }

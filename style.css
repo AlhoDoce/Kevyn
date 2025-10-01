@@ -46,7 +46,7 @@ html {
     600px 200px #fff, 700px 900px #fff, 1100px 700px #fff, 1300px 200px #fff,
     1900px 400px #fff, 200px 100px #fff, 500px 600px #fff, 1400px 800px #fff,
     900px 900px #fff;
-  animation: animarEstrelas 50s linear infinite;
+  animation: animarEstrelas 20s linear infinite;
 }
 
 #stars2 {
@@ -56,22 +56,22 @@ html {
     1000px 300px #ddd, 1300px 800px #ddd, 1600px 400px #ddd, 1900px 700px #ddd,
     200px 200px #ddd, 600px 900px #ddd, 900px 500px #ddd, 1200px 100px #ddd,
     1500px 600px #ddd, 1800px 900px #ddd, 100px 700px #ddd, 400px 300px #ddd;
-  animation: animarEstrelas 100s linear infinite;
+  animation: animarEstrelas 10s linear infinite;
 }
 
 #stars3 {
-  width: 3px; /* Estrelas grandes */
-  height: 3px;
+  width: 5px; /* Estrelas grandes */
+  height: 5px;
   box-shadow: 200px 1000px #ccc, 400px 1900px #ccc, 800px 200px #ccc,
     1100px 600px #ccc, 1400px 900px #ccc, 1700px 100px #ccc, 100px 500px #ccc,
     300px 800px #ccc, 700px 400px #ccc, 1000px 700px #ccc;
-  animation: animarEstrelas 150s linear infinite;
+  animation: animarEstrelas 10s linear infinite;
 }
 
 /* Animação que move as estrelas para baixo (caindo) */
 @keyframes animarEstrelas {
   from {
-    transform: translateY(-2000px); /* Começa acima da tela */
+    transform: translateY(-1000px); /* Começa acima da tela */
   }
   to {
     transform: translateY(

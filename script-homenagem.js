@@ -1,107 +1,153 @@
-// --- Lógica para os Botões com Balão de Mensagem ---
 document.addEventListener('DOMContentLoaded', () => {
-    const botoesBalao = document.querySelectorAll('.botao-balao');
 
+    // --- Lógica para os Botões com Balão de Mensagem ---
+    const botoesBalao = document.querySelectorAll('.botao-balao');
     botoesBalao.forEach(container => {
         const button = container.querySelector('.btn-interativo');
-        let timeoutId; // Para controlar o tempo de exibição do balão
-
-        button.addEventListener('mouseover', () => {
-            clearTimeout(timeoutId); // Limpa qualquer timeout anterior para evitar conflito
-            container.classList.add('active'); // Mostra o balão
-        });
-
-        button.addEventListener('mouseout', () => {
-            // Esconde o balão após um pequeno atraso
-            timeoutId = setTimeout(() => {
-                container.classList.remove('active');
-            }, 300); // Esconde após 300ms
-        });
-
-        // Opcional: Para telas de toque, pode ser necessário um clique
+        let timeoutId;
+        button.addEventListener('mouseover', () => { clearTimeout(timeoutId); container.classList.add('active'); });
+        button.addEventListener('mouseout', () => { timeoutId = setTimeout(() => { container.classList.remove('active'); }, 300); });
         button.addEventListener('click', () => {
-            // Para toggle em telas de toque
             container.classList.toggle('active');
-            // Se o balão apareceu por clique, ele deve sumir em alguns segundos
             if (container.classList.contains('active')) {
                 clearTimeout(timeoutId);
-                timeoutId = setTimeout(() => {
-                    container.classList.remove('active');
-                }, 3000); // Balão some após 3 segundos no clique
+                timeoutId = setTimeout(() => { container.classList.remove('active'); }, 3000);
             }
         });
     });
-});
 
-
-// --- Lógica para o Carrossel de Imagens Automático ---
-const carrossel = document.getElementById('carrossel');
-const imagens = carrossel.querySelectorAll('img');
-let indiceAtual = 0;
-
-function moverCarrossel() {
-    indiceAtual++;
-    if (indiceAtual >= imagens.length) {
-        indiceAtual = 0; // Volta para a primeira imagem
+    // --- Lógica para o Carrossel Infinito ---
+    const carrossel = document.querySelector('.carrossel-imagens');
+    if (carrossel) {
+        const imagensOriginais = Array.from(carrossel.querySelectorAll('img'));
+        if (imagensOriginais.length > 0) {
+            const primeiraImagemClone = imagensOriginais[0].cloneNode(true);
+            carrossel.appendChild(primeiraImagemClone);
+        }
+        let indiceAtual = 0;
+        const totalImagens = imagensOriginais.length;
+        function moverCarrossel() {
+            indiceAtual++;
+            carrossel.style.transition = 'transform 0.7s ease-in-out';
+            const larguraImagem = carrossel.clientWidth;
+            carrossel.style.transform = `translateX(${-larguraImagem * indiceAtual}px)`;
+        }
+        carrossel.addEventListener('transitionend', () => {
+            if (indiceAtual > totalImagens - 1) {
+                carrossel.style.transition = 'none';
+                indiceAtual = 0;
+                const larguraImagem = carrossel.clientWidth;
+                carrossel.style.transform = `translateX(${-larguraImagem * indiceAtual}px)`;
+            }
+        });
+        setInterval(moverCarrossel, 3500);
     }
-    const larguraImagem = imagens[0].clientWidth; // Pega a largura da primeira imagem
-    carrossel.style.transform = `translateX(${-larguraImagem * indiceAtual}px)`;
-}
-
-// Inicia o carrossel a cada 3 segundos (3000 milissegundos)
-setInterval(moverCarrossel, 3000); 
-
-
-// --- Lógica para o Botão "Abrir Coração" ---
-const btnCoracao = document.getElementById('btnCoracao');
-
-btnCoracao.addEventListener('click', () => {
-    // Cria um overlay para a animação
-    const overlay = document.createElement('div');
-    overlay.classList.add('coracao-animacao');
     
-    // Adiciona o coração dentro do overlay
-    const coracao = document.createElement('div');
-    coracao.classList.add('coracao');
-    overlay.appendChild(coracao);
-
-    document.body.appendChild(overlay);
-
-    // Força o reflow para garantir que a transição ocorra
-    void overlay.offsetWidth; 
-
-    // Mostra o overlay e o coração com animação
-    overlay.classList.add('show');
-
-    // Remove o overlay após a animação (ex: 3 segundos)
-    setTimeout(() => {
-        overlay.classList.remove('show');
+    // --- Lógica do Botão "Abrir Coração" ---
+    const btnCoracao = document.getElementById('btnCoracao');
+    btnCoracao.addEventListener('click', () => {
+        const overlay = document.createElement('div');
+        overlay.classList.add('coracao-animacao');
+        const coracao = document.createElement('div');
+        coracao.classList.add('coracao');
+        const texto = document.createElement('p');
+        texto.classList.add('texto-animado');
+        texto.textContent = "Você é especial!";
+        overlay.appendChild(coracao);
+        overlay.appendChild(texto);
+        document.body.appendChild(overlay);
+        void overlay.offsetWidth;
+        overlay.classList.add('show');
         setTimeout(() => {
-            overlay.remove(); // Remove o elemento do DOM
-            // Opcional: Redirecionar para outra página ou mostrar uma mensagem final
-            // window.location.href = 'pagina-final-do-coracao.html';
-        }, 500); // Pequeno atraso para a opacidade diminuir
-    }, 3000); // Coração visível por 3 segundos
-});
+            overlay.classList.remove('show');
+            setTimeout(() => {
+                overlay.remove();
+            }, 500);
+        }, 3500);
+    });
 
+    // ===================================================================
+    // ATUALIZADO: LÓGICA DO BOTÃO "UMA PERGUNTA ESPECIAL" (WHATSAPP)
+    // ===================================================================
+    const btnWhatsapp = document.getElementById('btnWhatsapp');
 
-// --- Lógica para o Botão "Uma Pergunta Especial" (WhatsApp) ---
-const btnWhatsapp = document.getElementById('btnWhatsapp');
+    btnWhatsapp.addEventListener('click', () => {
+        // 1. Cria a estrutura do modal
+        const overlay = document.createElement('div');
+        overlay.className = 'overlay-pergunta';
 
-btnWhatsapp.addEventListener('click', () => {
-    // A mensagem padrão que será enviada
-    const mensagem = "Olá! Recebi sua pergunta especial do site e estou curiosa/o para saber o que é!";
-    
-    // O número de telefone (com código do país, sem + ou outros caracteres especiais)
-    // Exemplo: 5511987654321 (55 para Brasil, 11 para DDD de São Paulo, 9 para celular)
-    const numeroTelefone = "5511999998888"; // **MUDE AQUI PARA O NÚMERO DE WHATSAPP DA PESSOA**
+        const caixaPergunta = document.createElement('div');
+        caixaPergunta.className = 'caixa-pergunta';
 
-    // Codifica a mensagem para URL
-    const mensagemCodificada = encodeURIComponent(mensagem);
+        caixaPergunta.innerHTML = `
+            <h2>Uma Pergunta...</h2>
+            <p>Você aceita ser a pessoa que alegra todos os meus dias?</p>
+            <div class="botoes-resposta">
+                <button class="btn-sim">Claro que sim!</button>
+                <button class="btn-nao">Não</button>
+            </div>
+        `;
 
-    // Monta a URL do WhatsApp
-    const urlWhatsapp = `https://wa.me/${numeroTelefone}?text=${mensagemCodificada}`;
+        overlay.appendChild(caixaPergunta);
+        document.body.appendChild(overlay);
+        
+        // Adiciona a classe .show para iniciar a animação de surgimento
+        setTimeout(() => overlay.classList.add('show'), 10);
 
-    // Abre o link em uma nova aba
-    window.open(urlWhatsapp, '_blank');
+        // 2. Adiciona os eventos aos botões
+        const btnSim = overlay.querySelector('.btn-sim');
+        const btnNao = overlay.querySelector('.btn-nao');
+
+        btnSim.addEventListener('click', () => {
+            // Ação para o "Sim": abre o WhatsApp
+            const mensagem = "Eu aceito ser a pessoa que alegra todos os seus dias! ❤️";
+            const numeroTelefone = "5511990065287"; // **LEMBRE-SE DE MUDAR AQUI!**
+            const mensagemCodificada = encodeURIComponent(mensagem);
+            const urlWhatsapp = `https://wa.me/${numeroTelefone}?text=${mensagemCodificada}`;
+            window.open(urlWhatsapp, '_blank');
+            
+            fecharModal();
+        });
+
+        btnNao.addEventListener('click', () => {
+            // Ação para o "Não": mostra o popup para repensar
+            caixaPergunta.innerHTML = `
+                <h2>Tem certeza? 😟</h2>
+                <p>Pense com carinho! Essa resposta pode mudar o rumo de uma galáxia inteira (a minha, no caso). Repense e tente de novo mais tarde!</p>
+                <div class="botoes-resposta">
+                    <button class="btn-fechar">Ok, vou repensar</button>
+                </div>
+            `;
+            
+            const btnFechar = overlay.querySelector('.btn-fechar');
+            btnFechar.addEventListener('click', fecharModal);
+        });
+
+        // Função para fechar e remover o modal
+        function fecharModal() {
+            overlay.classList.remove('show');
+            setTimeout(() => {
+                overlay.remove();
+            }, 400); // Espera a transição de fade-out terminar
+        }
+    });
+
+    // --- Função para criar Corações Flutuantes ---
+    function criarCoracoesFlutuantes() {
+        const container = document.getElementById('coracoes-flutuantes');
+        if (!container) return;
+        const quantidade = 15;
+        for (let i = 0; i < quantidade; i++) {
+            const coracao = document.createElement('div');
+            coracao.classList.add('coracao-fundo');
+            coracao.innerHTML = '♥';
+            coracao.style.left = Math.random() * 100 + 'vw';
+            coracao.style.animationDuration = (Math.random() * 8 + 7) + 's';
+            coracao.style.animationDelay = Math.random() * 5 + 's';
+            coracao.style.transform = `scale(${Math.random() * 0.8 + 0.5})`;
+            coracao.style.opacity = Math.random() * 0.5 + 0.2;
+            container.appendChild(coracao);
+        }
+    }
+    criarCoracoesFlutuantes();
 });
