@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Homenagem Especial</title>
-    <link rel="stylesheet" href="style-homenagem.css"> </head>
+    <link rel="stylesheet" href="style-homenagem.css">
+</head>
 <body>
-
     <div class="estrelas">
         <div id="stars1"></div>
         <div id="stars2"></div>
         <div id="stars3"></div>
     </div>
-
     <div id="coracoes-flutuantes"></div>
 
     <header>
@@ -23,16 +22,35 @@
     <main>
         <section class="botoes-balao-container">
             <div class="botao-balao">
-                <button id="btn1" class="btn-interativo">Um Lembrete...</button>
-                <span class="balao" id="balao1">Você ilumina meus dias!</span>
+                <button class="btn-interativo">Um Lembrete...</button>
+                <span class="balao">Você ilumina meus dias!</span>
             </div>
             <div class="botao-balao">
-                <button id="btn2" class="btn-interativo">Uma Memória...</button>
-                <span class="balao" id="balao2">Você é alguém muito especial !</span>
+                <button class="btn-interativo">Uma Memória...</button>
+                <span class="balao">Aquele dia foi inesquecível.</span>
             </div>
             <div class="botao-balao">
-                <button id="btn3" class="btn-interativo">Um Sentimento...</button>
-                <span class="balao" id="balao3">Sua presença é um presente.</span>
+                <button class="btn-interativo">Um Sentimento...</button>
+                <span class="balao">Sua presença é um presente.</span>
+            </div>
+        </section>
+        
+        <section class="caixa-memorias-container">
+            <button id="btn-memoria" class="btn-memoria">Clique para uma memória especial</button>
+            <div id="display-memoria" class="display-memoria">
+                <p id="texto-memoria">Nossas memórias aparecerão aqui...</p>
+            </div>
+        </section>
+
+        <section class="contador-container">
+            <h2>Estamos Juntos Há:</h2>
+            <div id="contador">
+                <div class="tempo-unidade"><span id="anos">0</span><label>Anos</label></div>
+                <div class="tempo-unidade"><span id="meses">0</span><label>Meses</label></div>
+                <div class="tempo-unidade"><span id="dias">0</span><label>Dias</label></div>
+                <div class="tempo-unidade"><span id="horas">0</span><label>Horas</label></div>
+                <div class="tempo-unidade"><span id="minutos">0</span><label>Minutos</label></div>
+                <div class="tempo-unidade"><span id="segundos">0</span><label>Segundos</label></div>
             </div>
         </section>
 
@@ -41,9 +59,10 @@
                 <img src="https://via.placeholder.com/600x400/FF5733/FFFFFF?text=Foto+1" alt="Foto 1">
                 <img src="https://via.placeholder.com/600x400/33FF57/FFFFFF?text=Foto+2" alt="Foto 2">
                 <img src="https://via.placeholder.com/600x400/3357FF/FFFFFF?text=Foto+3" alt="Foto 3">
-                <img src="https://via.placeholder.com/600x400/F0F0F0/000000?text=Foto+4" alt="Foto 4">
             </div>
         </section>
+
+        <iframe style="border-radius:12px; margin-top: 20px; margin-bottom: 20px;" src="https://open.spotify.com/embed/track/0vfRBCO9DSAWscf03UxYnV?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
         <section class="botoes-especiais-container">
             <button id="btnCoracao" class="btn-especial">Abrir Coração</button>
@@ -51,5 +70,6 @@
         </section>
     </main>
 
-    <script src="script-homenagem.js"></script> </body>
+    <script src="script-homenagem.js"></script>
+</body>
 </html>

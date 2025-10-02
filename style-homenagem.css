@@ -1,6 +1,7 @@
-/* ========================================= */
-/* ESTILO GERAL (TEMA ESCURO)                */
-/* ========================================= */
+/* ... (Todo o CSS anterior permanece o mesmo até a seção de responsividade) ... */
+/* Cole o CSS inteiro para garantir */
+
+/* Estilos gerais, estrelas, corações, header, main, etc... */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -13,10 +14,6 @@ body {
   align-items: center;
   min-height: 100vh;
 }
-
-/* ========================================= */
-/* FUNDO DE ESTRELAS ANIMADO                 */
-/* ========================================= */
 .estrelas {
   position: fixed;
   top: 0;
@@ -71,10 +68,6 @@ body {
     transform: translateY(0px);
   }
 }
-
-/* ========================================= */
-/* NOVO: FUNDO DE CORAÇÕES FLUTUANTES        */
-/* ========================================= */
 #coracoes-flutuantes {
   position: fixed;
   top: 0;
@@ -84,16 +77,14 @@ body {
   overflow: hidden;
   z-index: -1;
 }
-
 .coracao-fundo {
   position: absolute;
-  bottom: -100px; /* Começa fora da tela */
+  bottom: -100px;
   font-size: 20px;
-  color: rgba(255, 105, 180, 0.3); /* Rosa semi-transparente */
+  color: rgba(255, 105, 180, 0.3);
   animation: flutuar linear infinite;
-  user-select: none; /* Impede que o texto seja selecionado */
+  user-select: none;
 }
-
 @keyframes flutuar {
   0% {
     transform: translateY(0) translateX(0) rotate(0deg);
@@ -107,8 +98,6 @@ body {
     opacity: 0;
   }
 }
-
-/* Conteúdo principal (restante do CSS) */
 header,
 main {
   width: 100%;
@@ -122,7 +111,7 @@ main {
   text-align: center;
 }
 header {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 header h1 {
   color: #ffc107;
@@ -142,6 +131,7 @@ main {
   gap: 20px;
   margin-bottom: 40px;
 }
+/* ... (outros estilos de botões, balões, etc, continuam aqui) ... */
 .botao-balao {
   position: relative;
   display: inline-block;
@@ -193,10 +183,55 @@ main {
   visibility: visible;
   opacity: 1;
 }
+
+/* ========================================= */
+/* NOVO: ESTILOS DO CONTADOR                 */
+/* ========================================= */
+.contador-container {
+  padding: 20px;
+  margin-bottom: 40px;
+}
+.contador-container h2 {
+  font-size: 1.2em;
+  color: #ffc107;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+#contador {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.tempo-unidade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  min-width: 70px;
+}
+.tempo-unidade span {
+  font-size: 2.5em;
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace; /* Fonte monoespaçada para não "pular" */
+  color: #fff;
+  line-height: 1;
+}
+.tempo-unidade label {
+  font-size: 0.8em;
+  color: #ccc;
+  text-transform: uppercase;
+}
+
+/* CARROSSEL */
 .carrossel-container {
   width: 100%;
   max-width: 600px;
-  margin: 0 auto 40px auto;
+  margin: 0 auto 20px auto;
   border-radius: 10px;
   overflow: hidden;
   aspect-ratio: 4 / 3;
@@ -212,6 +247,8 @@ main {
   flex-shrink: 0;
   object-fit: contain;
 }
+
+/* Botões Especiais, Animação de Coração, Modal da Pergunta, etc... */
 .botoes-especiais-container {
   display: flex;
   justify-content: center;
@@ -219,8 +256,8 @@ main {
   margin-top: 20px;
 }
 .btn-especial {
-  background-color: #c93d3d;
-  color: #ffffff;
+  background-color: #ffc107;
+  color: #333;
   padding: 15px 30px;
   border: none;
   border-radius: 40px;
@@ -233,14 +270,10 @@ main {
   text-transform: uppercase;
 }
 .btn-especial:hover {
-  background-color: #e41515;
+  background-color: #ffb300;
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
-
-/* ========================================= */
-/* ANIMAÇÃO DE CORAÇÃO E TEXTO               */
-/* ========================================= */
 .coracao-animacao {
   position: fixed;
   top: 0;
@@ -291,8 +324,6 @@ main {
 .coracao-animacao.show .coracao {
   transform: scale(1);
 }
-
-/* NOVO: Estilo para o texto animado */
 .texto-animado {
   color: #fff;
   font-size: 2em;
@@ -301,30 +332,183 @@ main {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-  transition-delay: 0.5s; /* Atraso para o texto aparecer depois do coração */
+  transition-delay: 0.5s;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
-
 .coracao-animacao.show .texto-animado {
   opacity: 1;
   transform: translateY(0);
 }
+.overlay-pergunta {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.overlay-pergunta.show {
+  opacity: 1;
+  visibility: visible;
+}
+.caixa-pergunta {
+  background-color: #333;
+  color: #fff;
+  padding: 30px 40px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform: scale(0.8) translateY(20px);
+  opacity: 0;
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+  transition-delay: 0.1s;
+}
+.overlay-pergunta.show .caixa-pergunta {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+.caixa-pergunta h2 {
+  color: #ffc107;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.caixa-pergunta p {
+  font-size: 1.1em;
+  margin-bottom: 30px;
+  color: #eee;
+}
+.botoes-resposta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.botoes-resposta button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 100px;
+}
+.botoes-resposta button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.btn-sim {
+  background-color: #4caf50;
+  color: white;
+}
+.btn-nao {
+  background-color: #f44336;
+  color: white;
+}
+.btn-fechar {
+  background-color: #9e9e9e;
+  color: white;
+}
 
-/* Responsividade (sem alteração) */
+/* ========================================= */
+/* NOVO: ESTILOS DA CAIXA DE MEMÓRIAS        */
+/* ========================================= */
+.caixa-memorias-container {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.btn-memoria {
+  background: linear-gradient(45deg, #ff6ec4, #7873f5);
+  color: white;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 15px rgba(255, 110, 196, 0.3);
+  margin-bottom: 20px;
+}
+
+.btn-memoria:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(120, 115, 245, 0.4);
+}
+
+.display-memoria {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 15px 20px;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.5s;
+}
+
+#texto-memoria {
+  margin: 0;
+  font-style: italic;
+  color: #ddd;
+  font-size: 1.1em;
+  opacity: 0.7;
+  transition: opacity 0.5s;
+}
+
+/* Efeito para quando uma nova memória aparece */
+.display-memoria.nova-memoria {
+  background-color: rgba(255, 110, 196, 0.2);
+}
+
+.display-memoria.nova-memoria #texto-memoria {
+  opacity: 1;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
   body {
     padding: 10px;
   }
   main,
   header {
-    padding: 20px;
+    padding: 15px;
   }
   header h1 {
+    font-size: 1.6em;
+  }
+  #contador {
+    gap: 10px;
+  }
+  .btn-memoria {
+    font-size: 1em;
+  }
+  #texto-memoria {
+    font-size: 1em;
+  }
+
+  .tempo-unidade {
+    padding: 8px;
+    min-width: 55px;
+  }
+  .tempo-unidade span {
     font-size: 1.8em;
   }
-  .btn-interativo {
-    padding: 12px 20px;
-    font-size: 0.95em;
+  .tempo-unidade label {
+    font-size: 0.6em;
   }
   .carrossel-container {
     aspect-ratio: 1 / 1;
@@ -341,102 +525,5 @@ main {
   }
   .texto-animado {
     font-size: 1.5em;
-  } /* Ajusta o texto animado para celular */
-}
-
-/* ========================================= */
-/* NOVO: ESTILOS PARA O MODAL DA PERGUNTA    */
-/* ========================================= */
-
-.overlay-pergunta {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.85); /* Fundo mais escuro */
-  backdrop-filter: blur(5px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000; /* Garante que fique acima de tudo */
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
-}
-
-.overlay-pergunta.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-.caixa-pergunta {
-  background-color: #333; /* Fundo escuro para a caixa */
-  color: #fff;
-  padding: 30px 40px;
-  border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  text-align: center;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  /* Animação de surgimento */
-  transform: scale(0.8) translateY(20px);
-  opacity: 0;
-  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
-  transition-delay: 0.1s; /* Aparece um pouco depois do fundo */
-}
-
-.overlay-pergunta.show .caixa-pergunta {
-  transform: scale(1) translateY(0);
-  opacity: 1;
-}
-
-.caixa-pergunta h2 {
-  color: #ffc107; /* Amarelo dourado */
-  margin-top: 0;
-  margin-bottom: 15px;
-}
-
-.caixa-pergunta p {
-  font-size: 1.1em;
-  margin-bottom: 30px;
-  color: #eee;
-}
-
-.botoes-resposta {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.botoes-resposta button {
-  padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1em;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  min-width: 100px;
-}
-
-.botoes-resposta button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.btn-sim {
-  background-color: #4caf50; /* Verde */
-  color: white;
-}
-
-.btn-nao {
-  background-color: #f44336; /* Vermelho */
-  color: white;
-}
-
-.btn-fechar {
-  background-color: #9e9e9e; /* Cinza */
-  color: white;
+  }
 }
